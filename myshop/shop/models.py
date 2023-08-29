@@ -4,7 +4,7 @@ NULLABLE = {'blank': True, 'null': True}
 
 class Category(models.Model):
     name = models.CharField(max_length=200, verbose_name="Категория")
-    slug = models.SlugField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, unique=True, verbose_name='слаг')
     desc = models.TextField(**NULLABLE, verbose_name='Описание')
 
     class Meta:
@@ -21,12 +21,12 @@ class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE, verbose_name='Категория')
     name = models.CharField(max_length=200, verbose_name='Имя')
     image = models.ImageField(upload_to='products/%Y/%m/%d', **NULLABLE, verbose_name='Фотография')
-    slug = models.SlugField(max_length=200)
-    desc = models.TextField(**NULLABLE)
+    slug = models.SlugField(max_length=200, verbose_name='слаг')
+    desc = models.TextField(**NULLABLE, verbose_name='описание')
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='цена')
-    available = models.BooleanField(default=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    available = models.BooleanField(default=True, verbose_name='наличие')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='когда создано')
+    updated = models.DateTimeField(auto_now=True, verbose_name='обновлено')
 
     class Meta:
         ordering =['name']
